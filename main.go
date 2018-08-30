@@ -21,7 +21,7 @@ type ResponseError struct {
 	error string
 }
 
-func getForecast(location Location) darksky.ForecastResponse {
+func getForecast(location Location) (darksky.ForecastResponse, error) {
 	client := darksky.New(os.Getenv("DARK_SKY_API_KEY"))
 	request := darksky.ForecastRequest{}
 	request.Latitude = location.Latitude
@@ -29,36 +29,48 @@ func getForecast(location Location) darksky.ForecastResponse {
 	request.Options = darksky.ForecastRequestOptions{Exclude: "hourly,minutely"}
 	forecast, err := client.Forecast(request)
 	if err != nil {
-		// TODO: better error handling.
-		// Return 500?
-		panic(err)
+		return darksky.ForecastResponse{}, err
 	}
 
-	return forecast
+	return forecast, nil
 }
 
-func getLocation(zip ZipCode) Location {
+func getLocation(zip ZipCode) (Location, error) {
 	lat, lng, err := geocoder.Geocode(string(zip))
 	if err != nil {
-		// TODO: This may happen if the zipcode is not in the right format.
-		panic(err)
+		return Location{}, err
 	}
 
-	return Location{darksky.Measurement(lat), darksky.Measurement(lng)}
+	return Location{darksky.Measurement(lat), darksky.Measurement(lng)}, nil
+}
+
+func getForecastResponse(zipcode ZipCode) ([]byte, error) {
+	loc, err := getLocation(zipcode)
+	if err != nil {
+		return nil, err
+	}
+	forecast, err := getForecast(loc)
+	if err != nil {
+		return nil, err
+	}
+	writableForecast, err := json.Marshal(forecast.Currently)
+	if err != nil {
+		return nil, err
+	}
+	return writableForecast, nil
 }
 
 func zipHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	params := r.URL.Query()
-	var zipcode ZipCode
 	if len(params["subscriber.zipcode"]) > 0 {
-		zipcode = ZipCode(params["subscriber.zipcode"][0])
-		loc := getLocation(zipcode)
-		forecast := getForecast(loc)
-		writableForecast, err := json.Marshal(forecast.Currently)
+		zipcode := ZipCode(params["subscriber.zipcode"][0])
+		writableForecast, err := getForecastResponse(zipcode)
 		if err != nil {
-			log.Fatal(err)
+			log.Printf("Error when getting forecat: %s", err.Error())
+			http.Error(w, "Internal server error", 500)
+			return
 		}
 		w.Write(writableForecast)
 	} else {
