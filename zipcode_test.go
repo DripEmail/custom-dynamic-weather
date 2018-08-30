@@ -1,38 +1,27 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestIsValid(t *testing.T) {
-	zip := ZipCode("12345")
-	if !zip.IsValid() {
-		t.Errorf("12345 flagged as invalid")
-	}
+	assert.True(t, ZipCode("12345").IsValid(), "should be valid")
 }
 
 func TestIsValidWithLeadingZeros(t *testing.T) {
-	zip := ZipCode("01234")
-	if !zip.IsValid() {
-		t.Errorf("01234 flagged as invalid")
-	}
+	assert.True(t, ZipCode("01234").IsValid(), "should be valid")
 }
 
 func TestIsValidWithZipPlusFour(t *testing.T) {
-	zip := ZipCode("01234-1234")
-	if !zip.IsValid() {
-		t.Errorf("01234-1234 flagged as invalid")
-	}
+	assert.True(t, ZipCode("01234-1234").IsValid(), "should be valid")
 }
 
 func TestIsValidWithLetters(t *testing.T) {
-	zip := ZipCode("ABC12")
-	if zip.IsValid() {
-		t.Errorf("ABC12 flagged as valid")
-	}
+	assert.False(t, ZipCode("ABC123").IsValid(), "should not be valid")
 }
 
 func TestIsValidWithWrongLength(t *testing.T) {
-	zip := ZipCode("1234")
-	if zip.IsValid() {
-		t.Errorf("1234 flagged as valid")
-	}
+	assert.False(t, ZipCode("1234").IsValid(), "should not be valid")
 }
