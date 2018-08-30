@@ -17,16 +17,23 @@ type Location struct {
 }
 
 // ResponseError defines the json response for an error.
-type ResponseError struct {
-	error string
+type ResponseError string
+
+// NewLocation instantiates a Location given a lat and long
+func NewLocation(lat, lng float64) Location {
+	return Location{
+		Latitude:  darksky.Measurement(lat),
+		Longitude: darksky.Measurement(lng),
+	}
 }
 
 func getForecast(location Location) (darksky.ForecastResponse, error) {
 	client := darksky.New(os.Getenv("DARK_SKY_API_KEY"))
-	request := darksky.ForecastRequest{}
-	request.Latitude = location.Latitude
-	request.Longitude = location.Longitude
-	request.Options = darksky.ForecastRequestOptions{Exclude: "hourly,minutely"}
+	request := darksky.ForecastRequest{
+		Latitude:  location.Latitude,
+		Longitude: location.Longitude,
+		Options:   darksky.ForecastRequestOptions{Exclude: "hourly,minutely"},
+	}
 	forecast, err := client.Forecast(request)
 	if err != nil {
 		return darksky.ForecastResponse{}, err
@@ -41,7 +48,7 @@ func getLocation(zip ZipCode) (Location, error) {
 		return Location{}, err
 	}
 
-	return Location{darksky.Measurement(lat), darksky.Measurement(lng)}, nil
+	return NewLocation(lat, lng), nil
 }
 
 func getForecastResponse(zipcode ZipCode) ([]byte, error) {
@@ -75,7 +82,7 @@ func zipHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write(writableForecast)
 	} else {
 		w.WriteHeader(http.StatusBadRequest)
-		jData, err := json.Marshal(ResponseError{"Needs subscriber.zipcode param"})
+		jData, err := json.Marshal("Needs subscriber.zipcode param")
 		if err != nil {
 			log.Fatal(err)
 		}
