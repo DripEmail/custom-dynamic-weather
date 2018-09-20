@@ -64,11 +64,11 @@ func zipHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	params := r.URL.Query()
-	if len(params["subscriber.zipcode"]) > 0 {
-		zipcode := ZipCode(params["subscriber.zipcode"][0])
+	if len(params["subscriber[zipcode]"]) > 0 {
+		zipcode := ZipCode(params["subscriber[zipcode]"][0])
 		writableForecast, err := getForecastResponse(zipcode)
 		if err != nil {
-			log.Printf("Error when getting forecat: %s", err.Error())
+			log.Printf("Error when getting forecast: %s", err.Error())
 			http.Error(w, "Internal server error", 500)
 			return
 		}
