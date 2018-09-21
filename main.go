@@ -17,7 +17,9 @@ type Location struct {
 }
 
 // ResponseError defines the json response for an error.
-type ResponseError string
+type ResponseError struct {
+	error string
+}
 
 // NewLocation instantiates a Location given a lat and long
 func NewLocation(lat, lng float64) Location {
@@ -82,7 +84,7 @@ func zipHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write(writableForecast)
 	} else {
 		w.WriteHeader(http.StatusBadRequest)
-		jData, err := json.Marshal("Needs subscriber.zipcode param")
+		jData, err := json.Marshal(ResponseError{"Needs subscriber.zipcode param"})
 		if err != nil {
 			log.Fatal(err)
 		}
