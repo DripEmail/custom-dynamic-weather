@@ -7,12 +7,11 @@ import (
 // ZipCode is a United States postal code.
 type ZipCode string
 
+var (
+	zipRegex = regexp.MustCompile("^\\d{5}(-\\d{4})?$")
+)
+
 // IsValid returns boolean based on whether it is a valid zip code
 func (zip ZipCode) IsValid() bool {
-	valid, err := regexp.MatchString("^\\d{5}(-\\d{4})?$", string(zip))
-	if err != nil {
-		// TODO: Handle errors better.
-		panic(err)
-	}
-	return valid
+	return zipRegex.MatchString(string(zip))
 }
