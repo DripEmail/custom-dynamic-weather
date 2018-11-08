@@ -5,6 +5,9 @@ go:
   - "1.11.x"
   - "master"
 
+before_install:
+  - "curl -L https://git.io/vp6lP | sh"
+
 script:
   - "make validate"
   - "make test"
