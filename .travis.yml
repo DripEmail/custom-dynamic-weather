@@ -7,6 +7,7 @@ go:
 
 before_install:
   - "curl -L https://git.io/vp6lP | sh"
+  - "dep ensure -v"
 
 script:
   - "make validate"

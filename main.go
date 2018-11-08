@@ -99,10 +99,14 @@ func zipHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func statusHandler(w http.ResponseWriter, r *http.Request) {
+}
+
 func main() {
 	if os.Getenv("DARK_SKY_API_KEY") == "" {
 		log.Fatal("DARK_SKY_API_KEY environment variable is required. Get one at https://darksky.net/dev/account")
 	}
 	http.HandleFunc("/api", zipHandler)
+	http.HandleFunc("/status", statusHandler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
