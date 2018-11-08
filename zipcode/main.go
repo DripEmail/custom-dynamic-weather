@@ -8,7 +8,7 @@ import (
 type ZipCode string
 
 var (
-	zipRegex = regexp.MustCompile("^\\d{5}(-\\d{4})?$")
+	zipRegex = regexp.MustCompile(`^\d{5}(-\d{4})?$`)
 )
 
 // IsValid returns boolean based on whether it is a valid zip code
