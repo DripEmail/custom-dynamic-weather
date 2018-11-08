@@ -82,14 +82,20 @@ func zipHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Internal server error", 500)
 			return
 		}
-		w.Write(writableForecast)
+		if _, err := w.Write(writableForecast); err != nil {
+			log.Printf("Error when sending successful response: %s", err.Error())
+			http.Error(w, "Internal server error", 500)
+		}
 	} else {
 		w.WriteHeader(http.StatusBadRequest)
 		jData, err := json.Marshal(ResponseError{"Needs subscriber.zipcode param"})
 		if err != nil {
 			log.Fatal(err)
 		}
-		w.Write(jData)
+		if _, err := w.Write(jData); err != nil {
+			log.Printf("Error when sending bad request response: %s", err.Error())
+			http.Error(w, "Internal server error", 500)
+		}
 	}
 }
 
