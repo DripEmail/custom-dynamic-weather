@@ -1,6 +1,6 @@
-# Drip Injectable Content Weather Demo
+# Drip Personalized Content Weather Demo
 
-This is a demonstration of how a backend API might look to integrate with Drip's Injectable Content product feature.
+This is a demonstration of how a backend API might look to integrate with Drip's Personalized Content product feature.
 
 This API assumes a subscriber with a custom field called `zipcode`, which is then translated into a response containing the weather for that location.
 
@@ -13,8 +13,8 @@ This will be passed into the server via an environment variable called `DARK_SKY
 ## Running via Docker
 
 ```bash
-docker pull getdrip/drip-injectable-weather
-docker run -e "DARK_SKY_API_KEY=abc123" -p 8080:8080 getdrip/drip-injectable-weather
+docker pull getdrip/drip-personalized-weather
+docker run -e "DARK_SKY_API_KEY=abc123" -p 8080:8080 getdrip/drip-personalized-weather
 ```
 
 ## Running directly
@@ -22,7 +22,7 @@ docker run -e "DARK_SKY_API_KEY=abc123" -p 8080:8080 getdrip/drip-injectable-wea
 Download the code with Go:
 
 ```bash
-go get -u github.com/DripEmail/drip-injectable-weather
+go get -u github.com/DripEmail/drip-personalized-weather
 ```
 
 Assuming you have Go and the associated tools installed locally, run `DARK_SKY_API_KEY=abc123 go run main.go`.
