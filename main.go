@@ -100,6 +100,10 @@ func zipHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func statusHandler(w http.ResponseWriter, r *http.Request) {
+	if _, err := w.Write([]byte("Yup, it's working...")); err != nil {
+		log.Printf("Error when sending bad request response: %s", err.Error())
+		http.Error(w, "Internal server error", 500)
+	}
 }
 
 func main() {
