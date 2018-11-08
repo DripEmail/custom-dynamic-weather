@@ -1,5 +1,7 @@
 # Drip Personalized Content Weather Demo
 
+[![Build Status](https://travis-ci.org/DripEmail/drip-personalized-weather.svg?branch=master)](https://travis-ci.org/DripEmail/drip-personalized-weather)
+
 This is a demonstration of how a backend API might look to integrate with Drip's Personalized Content product feature.
 
 This API assumes a subscriber with a custom field called `zipcode`, which is then translated into a response containing the weather for that location.
