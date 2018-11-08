@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/DripEmail/drip-injectable-weather/zipcode"
 	"github.com/jasonwinn/geocoder"
 	"github.com/shawntoffel/darksky"
 )
@@ -44,7 +45,7 @@ func getForecast(location Location) (darksky.ForecastResponse, error) {
 	return forecast, nil
 }
 
-func getLocation(zip ZipCode) (Location, error) {
+func getLocation(zip zipcode.ZipCode) (Location, error) {
 	lat, lng, err := geocoder.Geocode(string(zip))
 	if err != nil {
 		return Location{}, err
@@ -53,7 +54,7 @@ func getLocation(zip ZipCode) (Location, error) {
 	return NewLocation(lat, lng), nil
 }
 
-func getForecastResponse(zipcode ZipCode) ([]byte, error) {
+func getForecastResponse(zipcode zipcode.ZipCode) ([]byte, error) {
 	loc, err := getLocation(zipcode)
 	if err != nil {
 		return nil, err
@@ -74,7 +75,7 @@ func zipHandler(w http.ResponseWriter, r *http.Request) {
 
 	params := r.URL.Query()
 	if len(params["subscriber[zipcode]"]) > 0 {
-		zipcode := ZipCode(params["subscriber[zipcode]"][0])
+		zipcode := zipcode.ZipCode(params["subscriber[zipcode]"][0])
 		writableForecast, err := getForecastResponse(zipcode)
 		if err != nil {
 			log.Printf("Error when getting forecast: %s", err.Error())
