@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/DripEmail/drip-injectable-weather/zipcode"
+	"github.com/DripEmail/drip-personalized-weather/zipcode"
 	"github.com/jasonwinn/geocoder"
 	"github.com/shawntoffel/darksky"
 )
