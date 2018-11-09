@@ -1,12 +1,12 @@
-# Drip Personalized Content Weather Demo
+# Drip Custom Dynamic Content Weather Demo
 
 [![Build Status](https://travis-ci.org/DripEmail/drip-personalized-weather.svg?branch=master)](https://travis-ci.org/DripEmail/drip-personalized-weather)
 
-This is a demonstration of how a backend API might look to integrate with Drip's Personalized Content product feature.
+This is a demonstration of how a backend API might look to integrate with Drip's Custom Dynamic Content product feature.
 
 This API assumes a subscriber with a custom field called `zipcode`, which is then translated into a response containing the weather for that location.
 
-## DarkSky API Key
+## Dark Sky API Key
 
 You will need to obtain a DarkSky API key here: https://darksky.net/dev/account
 
