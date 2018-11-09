@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/DripEmail/drip-personalized-weather/zipcode"
+	"github.com/DripEmail/custom-dynamic-weather/zipcode"
 	"github.com/jasonwinn/geocoder"
 	"github.com/shawntoffel/darksky"
 )
@@ -54,8 +54,8 @@ func getLocation(zip zipcode.ZipCode) (Location, error) {
 	return NewLocation(lat, lng), nil
 }
 
-func getForecastResponse(zipcode zipcode.ZipCode) ([]byte, error) {
-	loc, err := getLocation(zipcode)
+func getForecastResponse(zip zipcode.ZipCode) ([]byte, error) {
+	loc, err := getLocation(zip)
 	if err != nil {
 		return nil, err
 	}
@@ -75,8 +75,8 @@ func zipHandler(w http.ResponseWriter, r *http.Request) {
 
 	params := r.URL.Query()
 	if len(params["subscriber[zipcode]"]) > 0 {
-		zipcode := zipcode.ZipCode(params["subscriber[zipcode]"][0])
-		writableForecast, err := getForecastResponse(zipcode)
+		zip := zipcode.ZipCode(params["subscriber[zipcode]"][0])
+		writableForecast, err := getForecastResponse(zip)
 		if err != nil {
 			log.Printf("Error when getting forecast: %s", err.Error())
 			http.Error(w, "Internal server error", 500)
