@@ -6,9 +6,9 @@ This is a demonstration of how a backend API might look to integrate with Drip's
 
 This API assumes a subscriber with a custom field called `zipcode`, which is then translated into a response containing the weather for that location.
 
-## Dark Sky API Key
+## Dark Sky<sup>&copy;</sup> API Key
 
-You will need to obtain a DarkSky API key here: https://darksky.net/dev/account
+You will need to obtain a Dark Sky<sup>&copy;</sup> API key here: https://darksky.net/dev/account
 
 This will be passed into the server via an environment variable called `DARK_SKY_API_KEY`.
 
