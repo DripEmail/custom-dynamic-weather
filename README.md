@@ -1,6 +1,6 @@
 # Drip Custom Dynamic Content Weather Demo
 
-[![Build Status](https://travis-ci.org/DripEmail/drip-personalized-weather.svg?branch=master)](https://travis-ci.org/DripEmail/drip-personalized-weather)
+[![Build Status](https://travis-ci.org/DripEmail/custom-dynamic-weather.svg?branch=master)](https://travis-ci.org/DripEmail/custom-dynamic-weather)
 
 This is a demonstration of how a backend API might look to integrate with Drip's Custom Dynamic Content product feature.
 
