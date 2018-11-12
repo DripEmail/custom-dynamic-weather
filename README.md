@@ -15,8 +15,8 @@ This will be passed into the server via an environment variable called `DARK_SKY
 ## Running via Docker
 
 ```bash
-docker pull getdrip/drip-personalized-weather
-docker run -e "DARK_SKY_API_KEY=abc123" -p 8080:8080 getdrip/drip-personalized-weather
+docker pull getdrip/custom-dynamic-weather
+docker run -e "DARK_SKY_API_KEY=abc123" -p 8080:8080 getdrip/custom-dynamic-weather
 ```
 
 ## Running directly
@@ -24,7 +24,7 @@ docker run -e "DARK_SKY_API_KEY=abc123" -p 8080:8080 getdrip/drip-personalized-w
 Download the code with Go:
 
 ```bash
-go get -u github.com/DripEmail/drip-personalized-weather
+go get -u github.com/DripEmail/custom-dynamic-weather
 ```
 
 Assuming you have Go and the associated tools installed locally, run `DARK_SKY_API_KEY=abc123 go run main.go`.
