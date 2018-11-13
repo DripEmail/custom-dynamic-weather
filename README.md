@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/DripEmail/custom-dynamic-weather.svg?branch=master)](https://travis-ci.org/DripEmail/custom-dynamic-weather)
 
-This is a demonstration of how a backend API might look to integrate with Drip's Custom Dynamic Content product feature.
+This is a demonstration of how a backend API might look to integrate with Drip's [Custom Dynamic Content](http://developer.drip.com/#background) product feature.
 
 This API assumes a subscriber with a custom field called `zipcode`, which is then translated into a response containing the weather for that location.
 
