@@ -1,5 +1,7 @@
 # Drip Custom Dynamic Content Weather Demo
 
+> **⚠️ NOTE: Dark Sky was acquired by Apple and the API was discontinued, with support ending March 31, 2023. This code is provided 'as-is' for reference purposes only and will not be updated.**
+
 [![Build Status](https://travis-ci.org/DripEmail/custom-dynamic-weather.svg?branch=master)](https://travis-ci.org/DripEmail/custom-dynamic-weather)
 
 This is a demonstration of how a backend API might look to integrate with Drip's [Custom Dynamic Content](http://developer.drip.com/#background) product feature.
